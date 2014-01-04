@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Opengit by gerep</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Opengit</h1>
+        <p class="header">Open your github project page from your terminal</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/gerep/opengit/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/gerep/opengit/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/gerep/opengit">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/gerep">gerep</a></p>
+
+
+      </header>
+      <section>
+        <h3>
+<a name="welcome-to-opengit" class="anchor" href="#welcome-to-opengit"><span class="octicon octicon-link"></span></a>Welcome to Opengit</h3>
+
+<p>This script is really simple and as expected does one simple thing:</p>
+
+<p>It will open your git project on github.com from your terminal</p>
+
+<h3>
+<a name="here-is-how-you-use-it" class="anchor" href="#here-is-how-you-use-it"><span class="octicon octicon-link"></span></a>Here is how you use it</h3>
+
+<p>To open the current branch</p>
+
+<pre><code>$ opengit
+</code></pre>
+
+<p>To open a specific branch, just name it</p>
+
+<pre><code>$ opengit your-cool-branch-name
+</code></pre>
+
+<p>It will check if the branch (current or passed as argument) exists on the remote side (github.com).</p>
+
+<p>That's it, really simple and you should try it, you'll love it <img class="emoji" title=":smile:" alt=":smile:" src="https://github.global.ssl.fastly.net/images/icons/emoji/smile.png" height="20" width="20" align="absmiddle"></p>
+
+<h3>
+<a name="and-this-is-how-you-install-it" class="anchor" href="#and-this-is-how-you-install-it"><span class="octicon octicon-link"></span></a>And this is how you install it</h3>
+
+<p>These instructions are for Linux, OS X users should make the necessary substitutions, if any, I know nothing about OS X.</p>
+
+<p>Create a directory <code>~/bin</code></p>
+
+<pre lang="shell"><code>mkdir -p "$HOME/bin"
+</code></pre>
+
+<p>Add the directory to the beginning of the <code>PATH</code> variable inside <code>.bashrc</code></p>
+
+<pre lang="shell"><code>echo 'PATH="$HOME/bin:$PATH"' &gt;&gt; "$HOME/.bashrc"
+</code></pre>
+
+<p>This way, every new instance of Bash will now check for executable scripts in your bin directory.</p>
+
+<p>Now you save the file <code>opengit</code> inside the <code>~/bin</code> directory and make the file executable with:</p>
+
+<pre lang="shell"><code>chmod +x opengit
+</code></pre>
+
+<p>If for some reason you don't want/can't grant the permissions, you can run it like this:</p>
+
+<pre lang="shell"><code>bash opengit
+</code></pre>
+
+<p>Power to you my friend!</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
