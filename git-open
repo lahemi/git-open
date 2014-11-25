@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /usr/bin/env bash
 #
 #   opengit [branch]
 #
@@ -6,19 +6,17 @@
 #
 # When no argument is passed, it will open the page on the current branch
 
-if [ -z "$MACHTYPE" ]; then
-  MACHTYPE=$(uname -o)
-fi
-
 # Fail on any error
 set -eu
 
 # Open git URL using default 'open' ocommand
 # $1: URL to open
-open_url() {
+
+function open_url()
+{
   case $MACHTYPE in
-    *[aA]pple*) local _open='open';;
-    *[lL]inux*) local _open='xdg-open';;
+    *apple*) local _open='open';;
+    *linux*) local _open='xdg-open'
   esac
   echo "Running: $_open $1"
   $_open $1 &> /dev/null
@@ -27,7 +25,9 @@ open_url() {
 # Check if remote is HTTPS or SSH
 # If HTTPS, return everything after '.com/'
 # If SSH, return everything after ':'
-get_remote() {
+
+function get_remote()
+{
   if ! remote=$(git config remote.origin.url); then
     echo "This is not a git repository" >&2
     return 1
@@ -36,7 +36,7 @@ get_remote() {
     echo "There are no origin remote" >&2
     return 1
   fi
-  if [ -n $(echo "$remote"|awk '/^http/') ]; then
+  if [ ${remote:0:4} = 'http' ]; then
     echo ${remote##*.com/}
   else
     echo ${remote##*:}
@@ -45,35 +45,37 @@ get_remote() {
 
 # Check if the branch exists remotely
 # $1: branch name (w/o remote)
-branch_exists() {
+
+function branch_exists()
+{
   git branch -r|grep -q "origin/$1\$"
 }
 
-url() {
-  case $(git config remote.origin.url) in
-    *github*)    echo "https://github.com/${repo%.*}/tree/";;
-    *bitbucket*) echo "https://bitbucket.com/${repo%%.*}/branch/";;
-    *)           echo "Non supported service."; exit 1;;
-  esac
-}
+#
+# Main
+#
+if ! repo=$(get_remote); then
+  exit 1
+fi
 
-main() {
-  if ! repo=$(get_remote); then
-    exit 1
-  fi
-
-  if [ $# -gt 0 ]; then
-    branch=$1
+function url()
+{
+  if [[ $(git config remote.origin.url) =~ "github" ]]; then
+    echo "https://github.com/${repo%.*}/tree/"
   else
-    branch=$(git symbolic-ref --short HEAD)
+    echo "https://bitbucket.com/${repo%%.*}/branch/"
   fi
-
-  if ! branch_exists $branch; then
-    echo "Branch $branch does not exists on remote"
-    exit 1
-  fi
-
-  open_url $(url)$branch
 }
 
-main
+if [ $# -gt 0 ]; then
+  branch=$1
+else
+  branch=$(git symbolic-ref --short HEAD)
+fi
+
+if ! branch_exists $branch; then
+  echo "Branch $branch does not exists on remote"
+  exit 1
+fi
+
+open_url $(url)$branch
